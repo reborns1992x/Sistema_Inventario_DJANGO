@@ -1,0 +1,92 @@
+{% extends "paginas/base.html" %}
+
+{% block titulo %} Lista de productos {% endblock %}
+
+
+{% block contenido %} 
+
+<div class="card bg-info">
+    <div class="card-header"></div>
+    <a
+        name=""
+        id=""
+        class="btn btn-success"
+        href="{% url 'registro_producto'%}"
+        role="button"
+        >Registrar Producto</a
+    >
+    
+    <div class="card-body bg-info">
+        <h4 class="card-title">Productos</h4>
+        <div
+            class="table-responsive"
+        >
+            <table
+                class="table table-primary"
+            >
+                <thead>
+                    <tr>
+                        <th scope="col">ID </th>
+                        <th scope="col">Nombre </th>
+                        <th scope="col">Precio </th>
+                        <th scope="col">Cantidad </th>
+                        <th scope="col">Tipo </th>
+                        <th scope="col">Imagen </th>
+                        <th scope="col">Descripción </th>
+                        <th scope="col">Acción </th>
+                        
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for productos_listados in productos %}
+                    <tr>
+                        <td> {{productos_listados.id}}</td>
+                        <td>{{productos_listados.nombre_Producto}}</td>
+                        <td>{{productos_listados.costo_Producto}}</td>
+                        <td>{{productos_listados.cantidad_Producto}}</td>
+                        <td>{{productos_listados.clasificacion_Producto}}</td>
+                        <td> <img src="{{productos_listados.imagen_Producto.url}}" height="200" width="300"/>
+                        </td>
+                        <td>{{productos_listados.descripcion_Producto}}</td>
+                        
+                        <td ><a
+                            name=""
+                            id=""
+                            class="btn btn-info btn-sm "
+                            href="{% url 'modificar' productos_listados.id %}"
+                            role="button"
+                            >Modificar</a
+                        >
+                        <a
+                            name=""
+                            id=""
+                            class="btn btn-danger btn-sm"
+                            href="{% url 'eliminar' productos_listados.id %}"
+                            role="button"
+                            >Eliminar</a
+                        >
+                         </td>
+                    </tr>
+                    
+                    </tr>
+
+                    
+                    
+
+                    {% endfor %} 
+                    
+                    {% include 'productos/pagi.html'%}
+                    
+                    
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+    
+    
+</div>
+
+
+{% endblock %} 

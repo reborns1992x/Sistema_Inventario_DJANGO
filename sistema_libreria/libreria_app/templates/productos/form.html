@@ -1,0 +1,42 @@
+<form enctype="multipart/form-data"method ="post">
+{% csrf_token %}
+
+{% for campo in formulario %}
+        {% if campo.field.widget.input_type != 'select' %}
+            <div class="mb-3">
+                <label for="{{ campo.id_for_label }}" class="form-label">{{ campo.label }}:</label>
+                {% if campo.field.widget.input_type == 'file' and campo.value %}
+                <br/>
+                <img src="{{MEDIA_URL}}/imagen_producto/{{campo.value}}" width="100" height="200" alt=""srcset="">
+                {% endif %}
+                <input
+                    type="{{ campo.field.widget.input_type }}"
+                    class="form-control"
+                    name="{{ campo.name }}"
+                    id=""
+                    aria-describedby="helpId"
+                    placeholder="{{ campo.label }}"
+                    value="{{campo.value | default:'' }}"
+                    />
+            </div>
+            
+        {% else %}
+            <div class="mb-3">
+                <label for="" class="form-label">{{ campo.label }}:</label>
+                <select class="form-select" name="{{ campo.name }}" id="">
+                    {% for option_key, option_value in campo.field.widget.choices %}
+                        <option value="{{ option_key }}">{{ option_value }}</option>
+                          
+                    {% endfor %}
+                         
+                </select>
+            </div>
+        {% endif %}
+        
+    {% endfor %}
+   
+
+    
+    <button type="submit" class="btn btn-primary">Confirmar</button>
+
+</form>
